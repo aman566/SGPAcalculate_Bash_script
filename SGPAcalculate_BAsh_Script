@@ -1,0 +1,37 @@
+#!/bin/bash
+
+declare -A arr
+arr=(['A']=10 ['a']=9 ['B']=8 ['b']=7 ['C']=6 ['c']=5 ['D']=4 ['F']=0 )
+
+if [ $# -eq 0 ];then
+	echo [result usage -- Please input in the arguments the grades you got with comm skills grade at the end]
+	echo "
+	  A -> 10
+	  a -> 9 A- == a
+ 	  B -> 8 
+  	  b -> 7 B- == b
+  	  C -> 6 
+	  c -> 5 C- == c
+  	  D -> 4
+ 	  F -> 0
+"
+	echo example: bash $0 A a A b C B
+	exit 1
+else
+	let sum=0
+	for count in $@;do
+		sum=$[${arr[$count]}+$sum]
+	done
+
+	for last;do true; done
+
+	sum=$[$sum-${arr[$last]}]
+	sum=$[$sum*4]
+	last=$[${arr[$last]}*2]
+	sum=$[$sum+$last]
+  credit=22
+	finalGPA=$[$sum/$credit]
+	result=$(echo "scale=2;$sum/22"|bc -q 2>/dev/null)
+ 	echo "Your Semester Grade point is $result"
+
+fi
