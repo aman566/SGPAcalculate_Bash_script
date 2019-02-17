@@ -16,21 +16,31 @@ if [ $# -eq 0 ];then
  	  F -> 0
 "
 	echo example: bash $0 A a A b C B
+	echo '4 5 5 4 2 ( credits in each subject )'
 	exit 1
 else
 	let sum=0
+	echo input credits in each subject
+	read creditInEachSubject
+	arr1=($creditInEachSubject)
+	read -a arr1 <<< $creditInEachSubject
+	i=0
 	for count in $@;do
-		sum=$[${arr[$count]}+$sum]
+		sum=$[${arr[$count]}*${arr1[$((i))]}+$sum]
+		i=$[$i+1]
 	done
 
-	for last;do true; done
-
-	sum=$[$sum-${arr[$last]}]
-	sum=$[$sum*4]
-	last=$[${arr[$last]}*2]
-	sum=$[$sum+$last]
-  credit=22
-	finalGPA=$[$sum/$credit]
+#	for last;do true; done
+#
+#	sum=$[$sum-${arr[$last]}]
+#	sum=$[$sum*4]
+#	last=$[${arr[$last]}*2]
+#	sum=$[$sum+$last]
+  	credits=0
+	for count in "${arr1[@]}";do
+ 		credits=$[$credits+$count]
+	done
+	finalGPA=$[$sum/$credits]
 	result=$(echo "scale=2;$sum/22"|bc -q 2>/dev/null)
  	echo "Your Semester Grade point is $result"
 
