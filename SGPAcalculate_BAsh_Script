@@ -41,7 +41,9 @@ else
  		credits=$[$credits+$count]
 	done
 	finalGPA=$[$sum/$credits]
-	result=$(echo "scale=2;$sum/$credits"|bc -q 2>/dev/null)
- 	echo "Your Semester Grade point is $result"
+	cgpa=$(echo "scale=2;$sum/$credits"|bc -q 2>/dev/null)
+ 	
+	
+	echo "Your Semester Grade point is $cgpa"
 
 fi
